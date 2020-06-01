@@ -130,8 +130,8 @@ class kafkaController extends Controller
         $conf->set('auto.offset.reset', 'smallest');
 
         // 在interval.ms的时间内自动提交确认、建议不要启动, 1是启动，0是未启动
-        $conf->set('enable.auto.offset.store', 0);
-        // $conf->set('auto.commit.interval.ms', 100);
+        $conf->set('enable.auto.offset.store', 0);//关闭自动提交
+        $conf->set('auto.commit.interval.ms', 0);//禁用自动提交
 
         $consumer = new \RdKafka\KafkaConsumer($conf);
 
@@ -190,7 +190,7 @@ class kafkaController extends Controller
     public function kafkaMsg()
     {
         $conf = new \RdKafka\Conf();
-        $conf->set('metadata.broker.list', '192.168.0.30:9092');
+        $conf->set('metadata.broker.list', '192.168.0.30:9092,192.168.0.31:9092,192.168.0.32:9092');
 
         //If you need to produce exactly once and want to keep the original produce order, uncomment the line below
         //$conf->set('enable.idempotence', 'true');
